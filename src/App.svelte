@@ -6,17 +6,16 @@
   import TafsirModal from "./lib/components/TafsirModal.svelte";
   import { quran } from "./lib/values/quran_summerizing";
   import { tafsir } from "./lib/values/tafsir";
-  import { surah,ayah } from "./lib/store";
-
-
+  import { surah, ayah } from "./lib/store";
+  var current_surah_audio;
   var tafsir_nb = 0;
-  var tafsir_id_rev, tafsir_txt, ayat_before;
+  var tafsir_id_rev, tafsir_txt, ayat_before, current_surah_ar_name;
 
   $: verses = quran[$surah]["verses"];
 
   $: nb_ayats = quran[$surah]["n_of_ayah"];
   $: ayat_before = quran[$surah]["ayah_before"];
-
+  $: current_surah_ar_name = quran[$surah]["name_translations"]["ar"];
   function tafsir_update(i) {
     tafsir_nb = i;
     tafsir_id_rev = nb_ayats - 1 - tafsir_nb;
@@ -36,6 +35,7 @@
   function startTimer() {
     setTimeout(() => {
       // start with basmala
+      current_surah_audio = $surah;
       audio.src = audio_ayats[0];
       audio.play();
     }, 0);
@@ -45,7 +45,7 @@
     if (ayah + 1 < nb_ayats) {
       audio.src = audio_ayats[ayah + 1];
       audio.play();
-      scrollIntoView();
+      //scrollIntoView();
     }
   }
 
@@ -55,33 +55,33 @@
       startTimer();
       paused = 0;
     } else if (paused) {
-      audio.play();
+      if ($ayah == 0) {
+        audio.src = audio_ayats[0];
+        audio.play();
+      } else {
+        audio.play();
+      }
       paused = 0;
     } else {
       audio.pause();
       paused = 1;
     }
   }
-
-  let scroller;
-  function scrollIntoView() {
-    const el = scroller.querySelector(".current");
-    console.log("scrolling to ", el);
-    if (!el) return;
-    el.scrollIntoView({
-      behavior: "smooth",
-    });
-  }
 </script>
 
 <main>
   <NavBar />
-  <Surah bind:this={scroller} {verses} {tafsir_update} />
-  <BottomBar {pause_resume}/>
+  <Surah {verses} {tafsir_update} />
+  <BottomBar {pause_resume} {current_surah_ar_name} />
   <TafsirModal {tafsir_nb} {tafsir_txt} />
   <audio
     on:ended={() => {
-      next_ayah(nb_ayats, $ayah++);
+      if (current_surah_audio != $surah) {
+        paused = -1;
+        current_surah_audio = $surah;
+      } else {
+        next_ayah(nb_ayats, $ayah++);
+      }
     }}
     bind:this={audio}
   />

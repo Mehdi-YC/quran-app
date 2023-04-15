@@ -1,8 +1,9 @@
 <script>
     import Basmala from "./Basmala.svelte";
-    import {ayah} from "../store"
+    import { surah, ayah } from "../store";
     export let verses, tafsir_update;
-
+    import PageSeparation from "./PageSeparation.svelte";
+    import { new_page } from "../values/new_page";
 
 </script>
 
@@ -11,20 +12,21 @@
     <br class="snap-start table-zebra" />
 
     {#each verses as ayah_txt, i (ayah_txt.na)}
+        {#if new_page[`${$surah + 1},${i}`] != undefined}
+            <PageSeparation page_number={new_page[`${$surah + 1},${i}`]} />
+        {/if}
         <button
             class="snap-start ayah_button table-cell"
             on:click={() => {
                 tafsir_update(i);
             }}
-            ><label for="tafsir-modal" class:current={$ayah === i} class="justif "
-                >{ayah_txt["text"]}</label
+            ><label
+                id="verse-{i}"
+                for="tafsir-modal"
+                class:current={$ayah === i}
+                class="justif">{ayah_txt["text"]}</label
             >۝</button
         >
-        <!--  <span class=" rtl ayah_counter table-cell w-20">
-            {"\u{FD3F}" + (i + 1) + "\u{FD3E}"} 
-            ۝
-        </span>
-       ۝  -->
     {/each}
 </div>
 
@@ -55,4 +57,3 @@
         scrollbar-width: none; /* Firefox */
     }
 </style>
-

@@ -3,11 +3,7 @@
   import { quran } from "../values/quran_summerizing";
   import { ayah, surah } from "../store";
   let surats = quran.map((i) => i["name_translations"]["ar"]);
-  let n ;
-  $:{
-    n = $surah
-    //player.stop()
-  }
+
 </script>
 
 <div class="clearfix sticky top-0 navbar bg-base-100 z-50">
@@ -40,7 +36,7 @@
             <button
               on:click={() => {
                 surah.update((n) => i);
-                ayah.set(1)
+                ayah.set(0)
               }}>{s}</button
             >
           </li>
