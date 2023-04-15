@@ -2,6 +2,8 @@
     import Basmala from "./Basmala.svelte";
     import {ayah} from "../store"
     export let verses, tafsir_update;
+
+
 </script>
 
 <div dir="rtl" class="snap snap-y snap-mandatory scroll-view">

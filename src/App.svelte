@@ -3,7 +3,7 @@
   import BottomBar from "./lib/components/BottomBar.svelte";
   import NavBar from "./lib/components/NavBar.svelte";
   import Surah from "./lib/components/Surah.svelte";
-  import TafsirModel from "./lib/components/TafsirModel.svelte";
+  import TafsirModal from "./lib/components/TafsirModal.svelte";
   import { quran } from "./lib/values/quran_summerizing";
   import { tafsir } from "./lib/values/tafsir";
   import { surah,ayah } from "./lib/store";
@@ -78,7 +78,7 @@
   <NavBar />
   <Surah bind:this={scroller} {verses} {tafsir_update} />
   <BottomBar {pause_resume}/>
-  <TafsirModel {tafsir_nb} {tafsir_txt} />
+  <TafsirModal {tafsir_nb} {tafsir_txt} />
   <audio
     on:ended={() => {
       next_ayah(nb_ayats, $ayah++);
