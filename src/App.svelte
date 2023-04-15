@@ -4,25 +4,27 @@
   import NavBar from "./lib/components/NavBar.svelte";
   import Surah from "./lib/components/Surah.svelte";
   import TafsirModal from "./lib/components/TafsirModal.svelte";
+  import InformationModal from "./lib/components/InformationModal.svelte";
   import { quran } from "./lib/values/quran_summerizing";
   import { tafsir } from "./lib/values/tafsir";
   import { surah, ayah } from "./lib/store";
+
   var current_surah_audio;
   var tafsir_nb = 0;
   var tafsir_id_rev, tafsir_txt, ayat_before, current_surah_ar_name;
 
   $: verses = quran[$surah]["verses"];
-
   $: nb_ayats = quran[$surah]["n_of_ayah"];
   $: ayat_before = quran[$surah]["ayah_before"];
   $: current_surah_ar_name = quran[$surah]["name_translations"]["ar"];
+
   function tafsir_update(i) {
     tafsir_nb = i;
     tafsir_id_rev = nb_ayats - 1 - tafsir_nb;
     tafsir_txt = tafsir[$surah][tafsir_id_rev]["text"];
   }
 
-  //audio stuff
+  //audio
   let audio, audio_ayats;
 
   $: audio_ayats = [...Array(nb_ayats).keys()].map(
@@ -45,7 +47,6 @@
     if (ayah + 1 < nb_ayats) {
       audio.src = audio_ayats[ayah + 1];
       audio.play();
-      //scrollIntoView();
     }
   }
 
@@ -74,6 +75,7 @@
   <Surah {verses} {tafsir_update} />
   <BottomBar {pause_resume} {current_surah_ar_name} />
   <TafsirModal {tafsir_nb} {tafsir_txt} />
+  <InformationModal />
   <audio
     on:ended={() => {
       if (current_surah_audio != $surah) {

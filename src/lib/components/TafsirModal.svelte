@@ -5,6 +5,8 @@
     export let tafsir_nb;
     export let tafsir_txt;
 </script>
+
+
 <input type="checkbox" id="tafsir-modal" class="modal-toggle" />
 <label for="tafsir-modal" class="modal cursor-pointer">
   <label class="modal-box relative" for="">

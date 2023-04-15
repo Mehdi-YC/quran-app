@@ -49,7 +49,7 @@
     <a class="btn btn-ghost normal-case text-xl">Quran</a>
   </div>
   <div class="navbar-end">
-    <button class="info btn btn-ghost btn-circle">ℹ︎</button>
+    <button class="info btn btn-ghost btn-circle"><label  for="information-modal" >ℹ︎<label/></button>
   </div>
 </div>
 
