@@ -2,7 +2,8 @@
   import { surah } from "../store";
   import { quran } from "../values/quran_summerizing";
 
-  let { tafsir_nb, tafsir_txt, show_tafsir } = $props();
+  let { tafsir_nb, tafsir_txt, show_tafsir = $bindable() } = $props();
+
 </script>
 
 <!-- Modal -->

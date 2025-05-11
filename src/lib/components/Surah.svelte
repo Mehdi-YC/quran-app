@@ -8,10 +8,10 @@
     let {verses, tafsir_update,tafsir_nb,tafsir_txt} = $props();
 
 
-    let show_tafsir = $state(true);
+    let show_tafsir = $state(false);
 </script>
 
-<TafsirModal {tafsir_nb} {tafsir_txt} bind:show_tafsir />
+<TafsirModal {tafsir_nb} {tafsir_txt} bind:show_tafsir={show_tafsir} />
 <div dir="rtl" style="height:90vh" class="bg-surface-700 text-white text-2xl scroll-view snap-y snap-mandatory overflow-y-scroll">
     <Basmala />
     <br class="snap-start table-zebra" />
@@ -25,7 +25,6 @@
             onclick={() => {
                 tafsir_update(i);
                 show_tafsir = true;
-                console.log("hello",show_tafsir)
             }}
             ><label
                 id="verse-{i}"
