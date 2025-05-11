@@ -1,13 +1,18 @@
 <script>
     import Basmala from "./Basmala.svelte";
     import { surah, ayah } from "../store";
-    export let verses, tafsir_update;
     import PageSeparation from "./PageSeparation.svelte";
     import { new_page } from "../values/new_page";
+    import TafsirModal from "./TafsirModal.svelte";
 
+    let {verses, tafsir_update,tafsir_nb,tafsir_txt} = $props();
+
+
+    let show_tafsir = $state(true);
 </script>
 
-<div dir="rtl" class="snap snap-y snap-mandatory scroll-view">
+<TafsirModal {tafsir_nb} {tafsir_txt} bind:show_tafsir />
+<div dir="rtl" style="height:90vh" class="bg-surface-700 text-white text-2xl scroll-view snap-y snap-mandatory overflow-y-scroll">
     <Basmala />
     <br class="snap-start table-zebra" />
 
@@ -17,8 +22,10 @@
         {/if}
         <button
             class="snap-start ayah_button table-cell"
-            on:click={() => {
+            onclick={() => {
                 tafsir_update(i);
+                show_tafsir = true;
+                console.log("hello",show_tafsir)
             }}
             ><label
                 id="verse-{i}"
@@ -40,12 +47,17 @@
     .scroll-view {
         z-index: 10;
         position: fixed;
-        padding: 60px 15% 0 15%;
+        padding: 60px 8% 0 8%;
         text-align: center;
         height: 75vh;
         overflow-y: scroll;
     }
-
+    .ayah_button {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    scroll-snap-align: start;
+    }
     /* Hide scrollbar for Chrome, Safari and Opera */
     .scroll-view::-webkit-scrollbar {
         display: none;

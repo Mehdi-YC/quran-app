@@ -1,9 +1,8 @@
 <script>
     import { ayah } from "../store";
-    export let pause_resume;
-    export let current_surah_ar_name;
+    let { pause_resume, current_surah_ar_name } = $props();
 
-    let isPlaying = false;
+    let isPlaying = $state(false);
 
     function togglePlayPause() {
         isPlaying = !isPlaying;
@@ -11,16 +10,11 @@
     }
 </script>
 
-<div class="fixed bottom-0 left-0 right-0 flex justify-around items-center bg-background text-2xl py-4 shadow-custom z-50">
-    <button
-        class="text-primary font-bold"
-        on:click={togglePlayPause}
-    >
-        {#if isPlaying}
-            ||
-        {:else}
-            ▶
-        {/if}
+<div
+    class="bg-surface-800 text-white fixed bottom-0 left-0 right-0 flex justify-around items-center text-2xl py-4 shadow-custom z-50"
+>
+    <button class="text-primary font-bold" onclick={togglePlayPause}>
+        {isPlaying ? "||" : "▶"}
     </button>
 
     <div class="text-secondary font-semibold">

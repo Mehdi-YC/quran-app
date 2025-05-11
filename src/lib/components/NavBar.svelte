@@ -1,15 +1,17 @@
 <script>
   import { quran } from "../values/quran_summerizing";
   import { ayah, surah } from "../store";
+  import InformationModal from "./InformationModal.svelte";
 
   let surats = quran.map((i) => i["name_translations"]["ar"]);
-  let show = false
-  function showToggle(){
-    show=!show
+
+  let show = $state(false);
+  function showToggle() {
+    show = !show;
   }
 </script>
 
-<div class="sticky top-0 z-50 bg-base-100 shadow-md">
+<div class="bg-surface-800 sticky top-0 z-50  shadow-md">
   <div class="flex items-center justify-between px-4 py-2">
     <!-- Dropdown -->
     <div class="relative">
@@ -33,42 +35,31 @@
 
       <!-- Dropdown Menu -->
       {#if show}
-      <ul class="absolute mt-2 p-2 bg-base-100 shadow-lg rounded-lg w-52 max-h-80 overflow-y-scroll z-50">
-        
-          
-        
-        {#each surats as s, i}
-          <li>
-            <button
-              class="block py-2 px-4 w-full text-left hover:bg-primary hover:text-white"
-              onclick={() => {
-                surah.update((n) => i);
-                ayah.set(0);
-                showToggle()
-              }}
-            >
-              {s}
-            </button>
-          </li>
-        {/each}
-      </ul>
+        <ul
+          class="bg-surface-800 absolute mt-4 p-2  shadow-lg rounded-lg w-52 max-h-80 overflow-y-scroll z-50"
+        >
+          {#each surats as s, i}
+            <li>
+              <button
+                class="block py-2 px-4 w-full text-left "
+                onclick={() => {
+                  surah.update((n) => i);
+                  ayah.set(0);
+                  showToggle();
+                }}
+              >
+                {s}
+              </button>
+            </li>
+          {/each}
+        </ul>
       {/if}
     </div>
 
     <!-- Center Title -->
-    <div class="text-xl font-semibold">
-      Quran
-    </div>
+    <div class="text-xl font-semibold">Quran</div>
 
     <!-- Info Button -->
-    <button class="info btn btn-ghost btn-circle border-2 border-current h-6 w-6 flex items-center justify-center">
-      <label for="information-modal" class="text-xl">ℹ︎</label>
-    </button>
+    <InformationModal />
   </div>
 </div>
-
-<style>
-  .info {
-    font-size: 16px;
-  }
-</style>

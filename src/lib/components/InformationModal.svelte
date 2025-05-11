@@ -2,25 +2,28 @@
   import { surah, ayah } from "../store";
   import { quran } from "../values/quran_summerizing";
 
-  let showModal = true;
-  function toggleModal(){
-    showModal = !showModal
+  let showModal = $state(false);
+  function toggleModal() {
+    showModal = !showModal;
   }
 </script>
 
 <!-- Trigger Button -->
 <button onclick={toggleModal} class="btn btn-primary" style="z-index:100">
-  Show Information
+  i
 </button>
 
 <!-- Modal -->
 {#if showModal}
-  <div class="fixed inset-0 flex items-center justify-center  bg-opacity-50 z-50">
-    <div dir="rtl" class="bg-background rounded-lg p-6 max-w-md w-full shadow-lg relative">
-      <button
-        class="absolute top-2 left-2 text-xl"
-        onclick={toggleModal}
-      >
+  <div
+    class="fixed inset-0 flex items-center justify-center  z-50 mx-2"
+    style="top:50px"
+  >
+    <div
+      dir="rtl"
+      class="bg-surface-800 text-white rounded-lg p-6 max-w-md w-full shadow-lg relative"
+    >
+      <button class="absolute top-2 left-2 text-xl" onclick={toggleModal}>
         ✕
       </button>
 

@@ -7,7 +7,7 @@
     <div
         style="width: 100%; height: 20px; border-bottom: 1px solid white; text-align: center"
     >
-        <span style="background-color:#202020 ;padding:0 10px">
+        <span>
             {page_number}
         </span>
     </div>
